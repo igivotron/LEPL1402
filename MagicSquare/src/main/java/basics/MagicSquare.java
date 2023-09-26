@@ -24,16 +24,20 @@ public class MagicSquare {
      * @return true if matrix is a n x n magic square, false otherwise
      */
     static boolean allNumber(int [][] matrix){
-        boolean notPresent = true;
-        int i = 0;
-        int j = 0;
-        for (int m =0; m< Math.pow(matrix.length, 2); m++){
+        for (int m =1; m< Math.pow(matrix.length, 2)+1; m++){
+            boolean notPresent = true;
+            int i = 0;
+            int j = 0;
             while (notPresent & i < matrix.length & j < matrix.length){
                 if (matrix[i][j] == m){
                     notPresent = false;
                 }
                 else{
-                    i++; j++;
+                    i++;
+                    if (i== matrix.length){
+                        i=0;
+                        j++;
+                    }
                 }
             }
             if (notPresent){
@@ -46,15 +50,35 @@ public class MagicSquare {
     static int reference(int [][] matrix){
         int sum = 0;
         for (int i=0; i< matrix.length; i++){
-            for (int j=0; j< matrix.length; j++){
-                sum += matrix[i][j];
-            }
+            sum += matrix[i][0];
         }
         return sum;
     }
 
     public static boolean isMagicSquare(int [][] matrix) {
         // TODO Implement the body of this method, feel free to add other methods but do not change the signature of isMagiSquare
+        int magicReference = reference(matrix);
+        if (allNumber(matrix)){
+            int sumDiagRight = 0;
+            int sumDiagLeft = 0;
+            for (int i=0; i< matrix.length; i++){
+                int sumRow = 0;
+                int sumColumn =0;
+                sumDiagLeft += matrix[i][i];
+                sumDiagRight += matrix[i][matrix.length-i-1];
+                for (int j=0; j< matrix.length; j++){
+                    sumRow += matrix[i][j];
+                    sumColumn += matrix[j][i];
+                }
+                if (sumRow != magicReference || sumColumn != magicReference) {
+                    return false;
+                }
+            }
+            if (sumDiagLeft != magicReference || sumDiagRight != magicReference) {
+                return false;
+            }
+            return true;
+        }
          return false;
     }
 }
