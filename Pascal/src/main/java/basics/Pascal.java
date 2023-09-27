@@ -71,10 +71,23 @@ public class Pascal {
      * @param n > 0
      * @return the nth row of Pascal triangle
      */
-    public static int[] pascal(int n) {
-         return null;
+    static long factorial(int a){
+        int fact = 1;
+        for (int i=1; i<a+1; i++){
+            fact*=i;
+        }
+        return fact;
     }
 
-
-
+    static int[] matrixPascal(int n){
+        n--;
+        int [] matrix = new int[n+1];
+        for (int k =0; k<n+1; k++){
+            matrix[k] = (int) (factorial(n) / (factorial(k) * factorial(n-k)));
+        }
+        return matrix;
+    }
+    public static int[] pascal(int n) {
+        return matrixPascal(n);
+    }
 }
