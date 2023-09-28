@@ -1,7 +1,5 @@
 package basics;
 
-import java.util.Arrays;
-
 
 /**
  * ***********
@@ -71,23 +69,22 @@ public class Pascal {
      * @param n > 0
      * @return the nth row of Pascal triangle
      */
-    static long factorial(int a){
-        int fact = 1;
-        for (int i=1; i<a+1; i++){
-            fact*=i;
-        }
-        return fact;
-    }
-
-    static int[] matrixPascal(int n){
+    static int[] pascalMatrix(int n){
         n--;
-        int [] matrix = new int[n+1];
-        for (int k =0; k<n+1; k++){
-            matrix[k] = (int) (factorial(n) / (factorial(k) * factorial(n-k)));
+        int [] line1 = new int[1];
+        line1[0] = 1;
+        for(int i=0; i<n; i++){
+            int [] line2 = new int[line1.length +1];
+            line2[0] = 1;
+            line2[line2.length-1] = 1;
+            for (int j=1; j<line2.length-1; j++){
+                line2[j] = line1[j-1] + line1[j];
+            }
+            line1 = line2;
         }
-        return matrix;
+        return line1;
     }
     public static int[] pascal(int n) {
-        return matrixPascal(n);
+        return pascalMatrix(n);
     }
 }

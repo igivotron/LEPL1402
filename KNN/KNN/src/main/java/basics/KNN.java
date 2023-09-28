@@ -2,6 +2,7 @@ package basics;
 
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 
 /**
@@ -132,9 +133,9 @@ public class KNN {
      *         among the k most similar students is > k/2, false otherwise
      */
     public static boolean predictSuccess(Student [] students, double[] grades, int k) {
+        // Arrays.sort(students, Comparator.comparingDouble(d -> euclideanDistance(d.grades, grades)));
         for (int i=0; i<students.length; i++){
             double distance = euclideanDistance(students[i].grades, grades);
-            System.out.println(distance);
         }
          return false;
     }

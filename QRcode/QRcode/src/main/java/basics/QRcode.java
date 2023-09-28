@@ -46,6 +46,7 @@ public class QRcode {
     @Override
     public boolean equals(Object o) {
         // TODO
+        System.out.print(o);
          return false;
     }
 
