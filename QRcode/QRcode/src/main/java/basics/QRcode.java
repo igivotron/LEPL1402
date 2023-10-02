@@ -46,6 +46,12 @@ public class QRcode {
     @Override
     public boolean equals(Object o) {
         // TODO
+        if (o==null || this.getClass() != o.getClass()){
+            return false;
+        }
+        QRcode c = (QRcode) o;
+
+
         System.out.print(o);
          return false;
     }
