@@ -78,7 +78,7 @@ public class QRcode {
                 t0[i][j] = qr.data[c0-j-1][i]; // rotation 3
                 t1[i][j] = qr.data[r0-i-1][c0-j-1]; // rotation 2
                 t2[i][j] = qr.data[j][r0-i-1]; // rotation 1
-                t3[i][j] = qr.data[i][j];
+                t3[i][j] = qr.data[i][j]; // no rotation
                 }
             }
         if (compare(this.data, t0) || compare(this.data, t1) || compare(this.data, t2) || compare(this.data, t3)){
