@@ -43,16 +43,49 @@ public class QRcode {
      * @param o the other matrix to compare to
      * @return
      */
+    boolean compare(boolean[][] m1, boolean m2[][]){
+        for (int i=0; i<m1.length; i++){
+            for (int j=0; j<m1[0].length; j++){
+                if (m1[i][j] != m2[i][j]){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
     @Override
     public boolean equals(Object o) {
-        // TODO
-        if (o==null || this.getClass() != o.getClass()){
+        if (o==null || getClass() != o.getClass()){
             return false;
         }
-        QRcode c = (QRcode) o;
+        QRcode qr = (QRcode) o;
 
+        int r0 = this.data.length;
+        int c0 = this.data[0].length;
+        int r1 = qr.data.length;
+        int c1 = qr.data[0].length;
 
-        System.out.print(o);
+        boolean[][] t0 = new boolean[r0][c0];
+        boolean[][] t1 = new boolean[r0][c0];
+        boolean[][] t2 = new boolean[r0][c0];
+        boolean[][] t3 = new boolean[r0][c0];
+
+        if (r0 != r1 || c0 != c1){
+            return false;
+        }
+        for(int i=0; i <r0; i++){
+            for (int j=0; j<c0; j++){
+                t0[i][j] = qr.data[c0-j-1][i]; // rotation 3
+                t1[i][j] = qr.data[r0-i-1][c0-j-1]; // rotation 2
+                t2[i][j] = qr.data[j][r0-i-1]; // rotation 1
+                t3[i][j] = qr.data[i][j];
+                }
+            }
+        if (compare(this.data, t0) || compare(this.data, t1) || compare(this.data, t2) || compare(this.data, t3)){
+            return true;
+        }
+
+        // TODO
          return false;
     }
 
