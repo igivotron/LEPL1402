@@ -1,24 +1,25 @@
 public class brouillon {
-    static long factorial(long a){
-        long fact = 1;
-        for (int i=1; i<a+1; i++){
-            fact*=i;
+
+    static int[] pascal(int n){
+        n--;
+        int [] line1 = new int[1];
+        line1[0] = 1;
+        for(int i=0; i<n; i++){
+            int [] line2 = new int[line1.length +1];
+            line2[0] = 1;
+            line2[line2.length-1] = 1;
+            for (int j=1; j<line2.length-1; j++){
+                line2[j] = line1[j-1] + line1[j];
+            }
+            line1 = line2;
         }
-        return fact;
+        return line1;
     }
 
-    static int[] matrixPascal(int n){
-        n--;
-        int [] matrix = new int[n+1];
-        for (int k =0; k<n+1; k++){
-            matrix[k] = (int) (factorial(n) / (factorial(k) * factorial(n-k)));
-        }
-        return matrix;
-    }
-    public static void main(String[] args){
-        int [] matrix = matrixPascal((15));
-        for (int i=0; i<matrix.length; i++){
-            System.out.print(matrix[i] + " ");
+    public static void main(String[] args) {
+        int[] m = pascal(9);
+        for (int i =0; i<m.length; i++){
+            System.out.print(m[i] + " ");
         }
     }
 }
