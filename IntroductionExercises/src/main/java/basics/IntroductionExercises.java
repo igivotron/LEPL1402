@@ -10,20 +10,21 @@ public class IntroductionExercises {
      * Function that bound variable to value
      */
     public static void attribute(int value){
+        variable = value;
     }
 
     /*
      * Function that return the addition of the two parameters
      */
     public static int add(int a, int b){
-         return 0;
+         return a+b;
     }
 
     /*
      * return true is a and b are equal
      */
     public static boolean equalsIntegers(int a, int b){
-         return false;
+         return a==b;
     }
 
     /*
@@ -31,7 +32,8 @@ public class IntroductionExercises {
      * You must use a ternary operation
      */
     public static int max(int a, int b){
-         return 0;
+        if(a<b){return b;}
+        return a;
     }
 
     /*
@@ -40,7 +42,10 @@ public class IntroductionExercises {
      * If two value are equals, return -1.
      */
     public static int middleValue(int a, int b, int c){
-         return 0;
+        if (a==b || b==c || a==c) {return -1;}
+        if ((a<b && b<c) || (c<b && b<a)) {return b;}
+        if ((b<a && a<c) || (c<a && a<b)) {return a;}
+        return c;
     }
     /*
      * This function must return :
@@ -52,7 +57,13 @@ public class IntroductionExercises {
      * And you should not use if/else!
      */
     public static String greetings(String str){
-         return "";
+        switch (str){
+            case "Morning":
+                return "Good morning, sir!";
+            case "Evening":
+                return "Good evening, sir!";
+        }
+         return "Hello, sir!";
     }
 
     /*
@@ -62,21 +73,33 @@ public class IntroductionExercises {
      * The last element is the middle element of a
      */
     public static int[] lastFirstMiddle(int[] a){
-         return null;
+        int[] A = new int[3];
+        A[1] = a[0];
+        A[2] = a[a.length/2];
+        A[0] = a[a.length-1];
+        return A;
     }
 
     /*
      * This function must return the sum of the elements of array using a for loop
      */
     public static int sum(int[] array){
-         return 0;
+        int s =0;
+        for (int i:array){s+=i;}
+        return s;
     }
 
     /*
      * return the maximum element of array using a while loop
      */
     public static int maxArray(int[] array){
-         return 0;
+        int i=0;
+        int m = 0;
+        while(i<array.length) {
+            m = max(m, array[i]);
+            i++;
+        }
+         return m;
     }
 
 
@@ -105,6 +128,15 @@ public class IntroductionExercises {
      * because 3.1 can not be converted to an integer
      * */
     public static void main(String... args){
+        squares = new int[args.length];
+        for (int i = 0; i < args.length; i++) {
+            try {
+                int val = Integer.parseInt(args[i]);
+                squares[i] = (int) Math.pow(val, 2);
+            } catch (NumberFormatException e) {
+                squares[i] = 0;
+            }
+        }
     }
 
 }
