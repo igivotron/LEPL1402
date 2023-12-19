@@ -14,7 +14,14 @@ public class Matrix {
      *  @return The matrix represented by the String
      */
     public static int[][] buildFrom(String s) {
-         return null;
+        String[] A = s.split("\n");
+        int[][] B = new int[A.length][];
+        for(int i=0; i< A.length; i++){
+            String[] C = A[i].split(" ");
+            B[i] = new int[C.length];
+            for(int j=0; j<C.length; j++){B[i][j] = Integer.parseInt(C[j]);}
+        }
+        return B;
     }
 
 
@@ -25,7 +32,9 @@ public class Matrix {
      * @return The sum of the element in matrix
      */
     public static int sum(int[][] matrix) {
-         return 0;
+        int sum = 0;
+        for (int[] i : matrix) {for (int j : i) {sum += j;}}
+        return sum;
     }
 
     /**
@@ -35,7 +44,13 @@ public class Matrix {
      * @return A new matrix that is the transpose of matrix
      */
     public static int[][] transpose(int[][] matrix) {
-         return null;
+        int[][] trans = new int[matrix[0].length][matrix.length];
+        for(int i=0; i<matrix[0].length; i++){
+            for(int j=0; j<matrix.length; j++){
+                trans[i][j] = matrix[j][i];
+            }
+        }
+        return trans;
     }
 
     /**
@@ -46,6 +61,14 @@ public class Matrix {
      * @return The n x k matrix product of matrix1 and matrix2
      */
     public static int[][] product(int[][] matrix1, int[][] matrix2) {
-         return null;
+        int[][] mult = new int[matrix1.length][matrix2[0].length];
+        for(int i=0; i< matrix1.length; i++){
+            for(int j=0; j< matrix2[0].length; j++){
+                int sum =0;
+                for(int k=0; k<matrix1[i].length;k++){sum += matrix1[i][k]*matrix2[k][j];}
+                mult[i][j] = sum;
+            }
+        }
+        return mult;
     }
 }

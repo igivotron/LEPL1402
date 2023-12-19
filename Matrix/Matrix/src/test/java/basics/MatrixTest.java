@@ -63,3 +63,4 @@ public class MatrixTest {
         assertArrayEquals(product, Matrix.product(matrix1, matrix2));
     }
 
+}
