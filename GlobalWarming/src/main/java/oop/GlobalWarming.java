@@ -1,6 +1,9 @@
 package oop;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -36,7 +39,8 @@ public class GlobalWarming {
      * systems.
      */
     public interface RecordObserver {
-        public void signalNewRecord(String place, float temperature);
+        public void signalNewRecord(String place,
+                                    float temperature);
     }
 
     /**
@@ -48,8 +52,6 @@ public class GlobalWarming {
         // Hint 1: You will need to store the past records in some data structure.
         // Hint 2: You will need to store the observers in some data structure.
 
-        private List<RecordObserver> observers = new ArrayList<>();
-        private List<Record> records = new ArrayList<>();
 
         /**
          * This method registers a new institution that is interested in being warned in real time of new temperature
@@ -57,45 +59,12 @@ public class GlobalWarming {
          *
          * @param observer The observer to be registered.
          */
+        private Map<String, Float> records = new HashMap<>();
+        private List<RecordObserver> observers = new ArrayList<>();
         void addObserver(RecordObserver observer) {
             // TODO
             observers.add(observer);
         }
-
-        public class Record implements Comparable<Record>{
-            public String place;
-            public float temperature;
-
-            public Record(String place, float temperature){
-                this.place = place;
-                this.temperature = temperature;
-            }
-            public void newtemp(float temperature){
-                this.temperature = temperature;
-            }
-
-            @Override
-            public int compareTo(Record o) {
-                return this.place.compareTo(o.place);
-            }
-
-        }
-        int isIn(List<Record> l, Record r){
-            int j = 0;
-            for (Record i: l){
-                if(i.place == r.place){
-                    return j;
-                }
-            j ++;
-            }
-            return -1;
-        }
-        void sendSignal(String place, float temperature){
-            for (RecordObserver observer : observers){
-                observer.signalNewRecord(place, temperature);
-            }
-        }
-
 
         /**
          * This method is called when a new temperature has been measured
@@ -105,23 +74,12 @@ public class GlobalWarming {
          * @param place       The place in the world where the temperature was measured.
          * @param temperature The measured temperature.
          */
-
         public void temperatureMeasured(String place, float temperature) {
-
-            Record r = new Record(place, temperature);
-            int i = isIn(records, r);
-            if (i != -1){
-                if(records.get(i).temperature < temperature){
-                    records.get(i).newtemp(temperature);
-                    sendSignal(place, temperature);
-                }
-            }
-            if (i == -1){
-                records.add(r);
-                sendSignal(place, temperature);
-
-                }
+            // TODO
+            if (!records.containsKey(place) || (records.containsKey(place) && records.get(place) < temperature)){
+                records.put(place, temperature);
+                for (RecordObserver o : observers) o.signalNewRecord(place, temperature);
             }
         }
     }
-
+}
